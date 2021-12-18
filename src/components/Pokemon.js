@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetPokemon } from "../redux/actions/PokemonActions";
 import _ from "lodash";
 import Wishlist from "./Wishlist";
+import GameBoy from "./GameBoy/GameBoy";
+import "./GameBoy/gameBoy.scss";
 
 const Pokemon = (props) => {
+  
+  //get pokemon from url
   const pokemonName = props.match.params.pokemon;
   const dispatch = useDispatch();
   const pokemonState = useSelector((state) => state.Pokemon);
@@ -59,7 +63,7 @@ const Pokemon = (props) => {
 
   const addPokemonCaught = (e) => {
     setCaught({pokemonName})
-    console.log(pokemonName)
+ 
     dispatch({
       type: "CREATE_CAUGHT_POKEMON",
       payload:{
@@ -69,21 +73,16 @@ const Pokemon = (props) => {
 }
   return(
     <>
+    <div>
+      <div>
+       
+      </div>
+    </div>
     <div className={"poke"}>
       <h1>{pokemonName}</h1>
       {ShowData()}
     </div>
-    <div>
-      <div>
-        <p>Add Pokemon to WishList:</p>
-        <button name={"name"} placeholder="Activity Name..." >ADD</button>
-      </div>
-      <div>
-        <p>Add Pokemon to Pokemon I've caught:</p>
-        <button name={"name"} placeholder="Activity Name..." onClick={() => addPokemonCaught()}>ADD</button>
-        {caught && (<Wishlist pokemonName={pokemonName}/>)}
-      </div>
-    </div>
+    
     </>
   )
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import logoImage from "./logo.png";
@@ -40,7 +40,9 @@ transform: translateX(-50%);
  
 `;
 
-const Navbar = () => {
+const Navbar = (props) => {
+
+
   return (
     <div className="">
       <Nav>

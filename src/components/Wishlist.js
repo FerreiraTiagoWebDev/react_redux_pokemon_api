@@ -3,14 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Wishlist = ({pokemonName}) => {
     const pokemonWishList = useSelector((state) => state.PokemonWishList);
-    console.log(pokemonWishList)
+
     const dispatch = useDispatch();
     
-
-    // useEffect(() => {
-    //     dispatch(GetPokemonWish(name));
-    //     console.log(name)
-    //   }, []);
 
     
   return (

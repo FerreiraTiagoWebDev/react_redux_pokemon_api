@@ -4,23 +4,20 @@ import _ from "lodash";
 import { GetPokemonList } from "../redux/actions/PokemonActions";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-
+import GameBoy from "./GameBoy/GameBoy";
 
 const PokemonList = (props) => {
-
-  
   //useSelector that gets the entire state from the PokemonList reducer in the store
   const pokemonList = useSelector((state) => state.PokemonList);
-  console.log(pokemonList)
   const dispatch = useDispatch();
-  
+
   //State of the search pokemon input
   const [search, setSearch] = useState("");
-  
 
   useEffect(() => {
     FetchData(1);
   }, []);
+  console.log(pokemonList)
 
   const FetchData = (page = 1) => {
     dispatch(GetPokemonList(page));
@@ -33,16 +30,7 @@ const PokemonList = (props) => {
 
     if (!_.isEmpty(pokemonList.data)) {
       return (
-        <div className={"list-wrapper"}>
-          {pokemonList.data.map((el) => {
-            return (
-              <div className={"pokemon-item"}>
-                <p>{el.name}</p>
-                <Link to={`/pokemon/${el.name}`}>View</Link>
-              </div>
-            );
-          })}
-        </div>
+          <p></p>
       );
     }
 
@@ -53,25 +41,29 @@ const PokemonList = (props) => {
     return <p>unable to get data</p>;
   };
 
-  return(
+  return (
     <div>
       <div className={"search-wrapper"}>
         <p>Search: </p>
-        <input type="text" onChange={e => setSearch(e.target.value)}/>
-        <button onClick={() => props.history.push(`/pokemon/${search}`)}>Search</button>
+        <input type="text" onChange={(e) => setSearch(e.target.value)} />
+        <button onClick={() => props.history.push(`/pokemon/${search}`)}>
+          Search
+        </button>
       </div>
       {ShowData()}
       {!_.isEmpty(pokemonList.data) && (
         <ReactPaginate
-          pageCount={Math.ceil(pokemonList.count / 15)}
+          pageCount={Math.ceil(pokemonList.count / 5)}
           pageRangeDisplayed={2}
           marginPagesDisplayed={1}
           onPageChange={(data) => FetchData(data.selected + 1)}
           containerClassName={"pagination"}
         />
       )}
+              <GameBoy pokemonList={pokemonList}/>
+
     </div>
-  )
+  );
 };
 
-export default PokemonList
+export default PokemonList;
