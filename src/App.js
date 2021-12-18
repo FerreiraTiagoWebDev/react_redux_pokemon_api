@@ -1,16 +1,17 @@
 import { Route, Switch, Redirect, NavLink } from "react-router-dom";
 import "./App.css";
+import Navbar from "./components/Navbar";
 import Pokemon from "./components/Pokemon";
 import PokemonList from "./components/PokemonList";
+import Wishlist from "./components/Wishlist";
 
 function App() {
   return (
     <div className="App">
-      <nav>
-        <NavLink to={"/"}>Search</NavLink>
-      </nav>
+      <Navbar />
       <Switch>
         <Route path={"/"} exact component={PokemonList} />
+        <Route path={"/wishlist"} exact component={Wishlist} />
         <Route path={"/pokemon/:pokemon"} exact component={Pokemon} />
         <Redirect to={"/"} />
       </Switch>

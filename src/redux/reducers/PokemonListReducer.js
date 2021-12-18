@@ -1,3 +1,9 @@
+//create DefaultState and set it as the first parameter of the reducer.
+//the action is the second parameter
+//what we return  from the reducer will be combined in the rootReducer and the rootReducer will then be put into the store which is accessible by all components
+
+
+
 const DefaultState = {
   loading: false,
   data: [],

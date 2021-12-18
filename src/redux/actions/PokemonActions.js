@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+//first call with all pokemons
 export const GetPokemonList = (page) => async dispatch => {
   try {
     dispatch({

@@ -7,9 +7,17 @@ import ReactPaginate from "react-paginate";
 
 
 const PokemonList = (props) => {
-  const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
+
+  
+  //useSelector that gets the entire state from the PokemonList reducer in the store
   const pokemonList = useSelector((state) => state.PokemonList);
+  console.log(pokemonList)
+  const dispatch = useDispatch();
+  
+  //State of the search pokemon input
+  const [search, setSearch] = useState("");
+  
+
   useEffect(() => {
     FetchData(1);
   }, []);
