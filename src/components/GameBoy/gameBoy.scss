@@ -15,6 +15,29 @@
   flex-direction: column;
   justify-content: space-around;
   position:relative;
+  
+.select_buttons{
+display: flex;
+margin-left: 20px;
+  button {
+    width: 75px;
+    height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 20px;
+  color: black;
+  background: transparent;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Press Start 2P", cursive;
+  font-size: 8px;
+  margin-top: 5px;
+  }
+}
 
   .select_arrow{
     position:absolute;
@@ -24,13 +47,14 @@
 }
 
 .list-wrapper .pokemon-item {
-  width: 150px;
+  width: 170px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  justify-content: center;
+  
   border: 2px solid black;
   margin: 0 auto;
+  margin-left: 30px;
   padding: 5px;
   border-radius: 20px;
 }

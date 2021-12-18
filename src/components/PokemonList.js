@@ -9,6 +9,7 @@ import GameBoy from "./GameBoy/GameBoy";
 const PokemonList = (props) => {
   //useSelector that gets the entire state from the PokemonList reducer in the store
   const pokemonList = useSelector((state) => state.PokemonList);
+ 
   const dispatch = useDispatch();
 
   //State of the search pokemon input
@@ -53,7 +54,7 @@ const PokemonList = (props) => {
       {ShowData()}
       {!_.isEmpty(pokemonList.data) && (
         <ReactPaginate
-          pageCount={Math.ceil(pokemonList.count / 5)}
+          pageCount={Math.ceil(pokemonList.count / 4)}
           pageRangeDisplayed={2}
           marginPagesDisplayed={1}
           onPageChange={(data) => FetchData(data.selected + 1)}

@@ -1,21 +1,55 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./gameBoy.scss"
-import { GoTriangleRight } from 'react-icons/go';
+import "./gameBoy.scss";
+import { GoTriangleRight } from "react-icons/go";
+import _ from "lodash";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { GetPokemonList } from "../../redux/actions/PokemonActions";
 
-const GameBoy = ({pokemonList}) => {
-const [arrowPosition, setArrowPosition] = useState(15)
+const GameBoy = ({ pokemonList }) => {
+  const [arrowPosition, setArrowPosition] = useState(14);
+  const [selectedPokemon, setSelectedPokemon] = useState(0);
+  const [counter, setCounter] = useState(2)
+  const pokemonList2 = useSelector((state) => state.PokemonList);
+  const history = useHistory();
+  const dispatch = useDispatch();
+ 
 
+  const handleArrowPositionUp = () => {
+    if (arrowPosition > 14) {
+      setArrowPosition(arrowPosition - 38);
+      setSelectedPokemon(selectedPokemon - 1);
+    }
+  };
+  const handleArrowPositionDown = () => {
+    if (arrowPosition < 128) {
+      setArrowPosition(arrowPosition + 38);
+      setSelectedPokemon(selectedPokemon + 1);
+    } else if (arrowPosition === 128) {
+      setArrowPosition(arrowPosition + 38);
+      setSelectedPokemon(4);
+    }
+  };
 
-const handleArrowPositionUp = () => {
-  if(arrowPosition > 1)
-  setArrowPosition(arrowPosition - 1)
-}
-const handleArrowPositionDown = () => {
-  if(arrowPosition < 5)
-  setArrowPosition(arrowPosition + 1)
-}
-console.log(arrowPosition)
+  const FetchData = (page) => {
+    dispatch(GetPokemonList(page));
+  };
+
+  const routeChange = () => {
+    if (selectedPokemon >= 0 && selectedPokemon < 4) {
+      let path = `/pokemon/${pokemonList.data[selectedPokemon].name}`;
+      history.push(path);
+    } else if (selectedPokemon > 3) {
+      setCounter(counter + 1)
+      console.log(counter)
+        FetchData(counter)
+        
+      
+    }
+  };
+
+  
   return (
     <div>
       <div className="gameboy" id="GameBoy">
@@ -33,20 +67,29 @@ console.log(arrowPosition)
           <div className="display" id="mainCanvas">
             <div className="display_pokemons">
               <p className="display_title">Choose your pokemon</p>
-            <div className={"list-wrapper"}>
-          {pokemonList.data.map((el) => {
-            return (
-              <Link to={`/pokemon/${el.name}`} key={el.name} className={"pokemon-item"}>
-                <div >
-                  <p>{el.name}</p>
+              <div className={"list-wrapper"}>
+                {pokemonList.data.map((el) => {
+                  return (
+                    <Link
+                      to={`/pokemon/${el.name}`}
+                      key={el.name}
+                      className={"pokemon-item"}
+                    >
+                      <div>
+                        <p>{el.name}</p>
+                      </div>
+                    </Link>
+                  );
+                })}
+                <GoTriangleRight
+                  style={{ top: `${arrowPosition}px` }}
+                  className="select_arrow"
+                />
+                <div className="select_buttons">
+                  <button>Next</button> <button>Prev</button>
                 </div>
-              </Link>
-            );
-          })}
-          <GoTriangleRight style={{top: `${arrowPosition}px`}} className="select_arrow"/>
-
-          {/* 10px 50px 80px 120px 160px*/}
-        </div>
+                {/* 10px 50px 80px 120px 160px*/}
+              </div>
             </div>
           </div>
 
@@ -67,7 +110,7 @@ console.log(arrowPosition)
         <div className="controls">
           <div className="dpad">
             <div className="up" onClick={() => handleArrowPositionUp()}>
-              <i className="fa fa-caret-up" ></i>
+              <i className="fa fa-caret-up"></i>
             </div>
             <div className="right">
               <i className="fa fa-caret-right"></i>
@@ -82,7 +125,10 @@ console.log(arrowPosition)
           </div>
           <div className="a-b">
             <div className="b">B</div>
-            <div className="a">A</div>
+
+            <div className="a" onClick={routeChange}>
+              A
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect, NavLink } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Pokemon from "./components/Pokemon";
