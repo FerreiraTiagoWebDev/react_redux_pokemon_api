@@ -52,7 +52,7 @@ const PokemonList = (props) => {
         </button>
       </div>
       {ShowData()}
-      {!_.isEmpty(pokemonList.data) && (
+      {/* {!_.isEmpty(pokemonList.data) && (
         <ReactPaginate
           pageCount={Math.ceil(pokemonList.count / 4)}
           pageRangeDisplayed={2}
@@ -60,7 +60,7 @@ const PokemonList = (props) => {
           onPageChange={(data) => FetchData(data.selected + 1)}
           containerClassName={"pagination"}
         />
-      )}
+      )} */}
               <GameBoy pokemonList={pokemonList}/>
 
     </div>

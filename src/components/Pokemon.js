@@ -56,7 +56,6 @@ const Pokemon = (props) => {
         <div></div>
       </div>
       <div className={"poke"}>
-        <h1>{pokemonName}</h1>
         {ShowData()}
       </div>
     </>
