@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GoTriangleRight } from "react-icons/go";
-import _ from "lodash";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { GetPokemonList } from "../../redux/actions/PokemonActions";
 import introVideo from "../../intro.mp4";
 import "./gameBoy.scss";
@@ -18,7 +17,7 @@ const GameBoyList = ({ pokemonList }) => {
 
   const [selectedPokemon, setSelectedPokemon] = useState(0);
   const [counter, setCounter] = useState(2);
-  const pokemonList2 = useSelector((state) => state.PokemonList);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -63,7 +62,11 @@ const GameBoyList = ({ pokemonList }) => {
       FetchData(counter);
     }
   };
-  console.log(counter);
+ 
+  useEffect(() => {
+  
+    
+  }, [])
 
   return (
     <div>
@@ -88,6 +91,7 @@ const GameBoyList = ({ pokemonList }) => {
                   width="210px"
                   height="190px"
                   autoPlay
+                  
                   muted
                   src={introVideo}
                   type="video/mp4"

@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { GoTriangleRight } from "react-icons/go";
-import _ from "lodash";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { GetPokemonList } from "../../redux/actions/PokemonActions";
-import introVideo from "../../intro.mp4";
 import "./gameBoyPokemon.scss";
+import { useHistory } from "react-router-dom";
+import { CgPokemon } from "react-icons/cg";
 
-const GameBoyPokemon = ({ pokemonName, pokeData }) => {
-  const [playVideo, setPlayVideo] = useState(true);
+
+const GameBoyPokemon = ( {pokemonName, pokeData }) => {
   const [showStats, setShowStats] = useState(false);
   const [showMoves, setShowMoves] = useState(false);
+  const history = useHistory();
+
+
+    //State of the search pokemon input
+    const [search, setSearch] = useState("");
 
   //Arrow Position on Y axis
   const [arrowPosition, setArrowPosition] = useState(110);
@@ -19,10 +20,7 @@ const GameBoyPokemon = ({ pokemonName, pokeData }) => {
   const [arrowPositionX, setArrowPositionX] = useState(10);
 
   const [selectedPokemon, setSelectedPokemon] = useState(0);
-  const [counter, setCounter] = useState(2);
 
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   //change arrow on Y Axis when pressing the Up and Down button
   const handleArrowPositionUp = () => {
@@ -58,16 +56,37 @@ const GameBoyPokemon = ({ pokemonName, pokeData }) => {
     }
   };
 
+
+
+
+
   //Functionality for the B button
-  const handleButtonB = () => {
+  const routeSearchChange = () => {
+    let path = `/pokemon/${search}`;
+    history.push(path);
+  }
+
+    const handleButtonB = () => {
     if (showStats || showMoves) {
       setShowStats(false);
       setShowMoves(false);
+    } else if(showStats === false && showMoves === false) {
+      let path =`/pokemon/`
+      history.push(path);
     }
   };
-  console.log(pokeData);
   return (
-    <div>
+    <div className="gameBoyPokemonContainer">
+      <div className={"search_wrapper"}>
+      <p>Search For Your Favorite Pokemon: </p>
+      <div className="form_row">
+        <input type="text" onChange={(e) => setSearch(e.target.value)} />
+        <button className="button_form_submit" onClick={() => routeSearchChange()}>
+          
+          <CgPokemon className="icon_form_submit"/> Search
+        </button>
+        </div>
+      </div>
       <div className="gameboy" id="GameBoy">
         <div className="screen-area">
           <div className="power">
@@ -123,13 +142,13 @@ const GameBoyPokemon = ({ pokemonName, pokeData }) => {
                     </div>
                   ) : showMoves ? (
                     <div className="retro_box">
-                      <button>{pokeData.moves[7].move.name}</button>
-                      <button>{pokeData.moves[68].move.name}</button>
+                      <button>{pokeData.moves[1].move.name}</button>
+                      <button>{pokeData.moves[2].move.name}</button>
                       <button id="btn_mTop">
-                        {pokeData.moves[52].move.name}
+                        {pokeData.moves[3].move.name}
                       </button>
                       <button id="btn_mTop2">
-                        {pokeData.moves[14].move.name}
+                        {pokeData.moves[4].move.name}
                       </button>
                     </div>
                   ) : (
@@ -189,7 +208,7 @@ const GameBoyPokemon = ({ pokemonName, pokeData }) => {
 
         <div className="start-select">
           <div className="select">SELECT</div>
-          <div className="start" onClick={() => setPlayVideo(false)}>
+          <div className="start">
             START
           </div>
         </div>
