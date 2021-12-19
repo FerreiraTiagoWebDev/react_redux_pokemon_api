@@ -1,10 +1,53 @@
+.display {
+  position: relative;
+  .upperVideoBar{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 210px;
+    top: 0;
+    background-color: black;
+    font-family: "Press Start 2P", cursive;
+    color:white;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .introvideo {
+    position: absolute;
+    left: 0px;
+    top: 30px;
+    zoom: 1;
+    background: black;
+    z-index: 0;
+    overflow: visible;
+    &::after {
+      content: "";
+      display: block;
+      
+      top: -20px;
+      left: 5px;
+      width: 20px;
+      height: 50px;
+  
+      background-color: #4f50db;
+      box-shadow: 0px 5px 0px #3d38b5;
+      border-bottom: 2px solid #9998eb;
+      z-index: 10;
+    }
+  }
+}
+
 .display_pokemons {
-  .display_title{
+  
+  .display_title {
     color: black;
     font-family: "Press Start 2P", cursive;
-  font-size: 10px;
-  padding: 1px;
-  margin:0px 0px 10px 10px;
+    font-size: 10px;
+    padding: 1px;
+    margin: 0px 0px 10px 10px;
   }
 }
 .list-wrapper {
@@ -14,36 +57,35 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  position:relative;
-  
-.select_buttons{
-display: flex;
-margin-left: 20px;
-  button {
-    width: 75px;
-    height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid black;
-  margin: 0 auto;
-  padding: 5px;
-  border-radius: 20px;
-  color: black;
-  background: transparent;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-family: "Press Start 2P", cursive;
-  font-size: 8px;
-  margin-top: 5px;
-  }
-}
+  position: relative;
 
-  .select_arrow{
-    position:absolute;
+  .select_buttons {
+    display: flex;
+    margin-left: 20px;
+    button {
+      width: 75px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid black;
+      margin: 0 auto;
+      padding: 5px;
+      border-radius: 20px;
+      color: black;
+      background: transparent;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-family: "Press Start 2P", cursive;
+      font-size: 8px;
+      margin-top: 5px;
+    }
+  }
+
+  .select_arrow {
+    position: absolute;
     color: black;
   }
-  
 }
 
 .list-wrapper .pokemon-item {
@@ -51,7 +93,7 @@ margin-left: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   border: 2px solid black;
   margin: 0 auto;
   margin-left: 30px;
@@ -81,6 +123,7 @@ margin-left: 20px;
   font-family: sans-serif;
   -webkit-user-select: none;
   cursor: default;
+  
   /*
     &::before {
       content:'';
@@ -117,6 +160,7 @@ margin-left: 20px;
     color: #67879a;
     box-shadow: 0px 2px 0px black, 0px -2px 0px black, -2px 0px 0px black,
       2px 0px 0px black;
+      
 
     &::after {
       content: "";
@@ -440,13 +484,13 @@ margin-left: 20px;
     .select,
     .start {
       display: inline-block;
-      color: #6b67ed;
+      color: #080808;
       text-shadow: 0px -1px 0px #3436bf;
       letter-spacing: -1px;
       width: 60px;
       font-size: 16px;
       text-align: center;
-      margin-top: 60px;
+      margin-top: 30px;
 
       &::before {
         content: "";
