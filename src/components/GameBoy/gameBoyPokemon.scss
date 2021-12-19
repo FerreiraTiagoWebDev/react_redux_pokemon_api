@@ -1,0 +1,24 @@
+.pokemonImage{
+    height: 100px;
+    width:auto;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.retro_box{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-top: 70px;
+    padding: 5px;
+    button {
+        width: 50px;
+    }
+    #btn_mTop {
+margin-top: 10px;
+    }
+}

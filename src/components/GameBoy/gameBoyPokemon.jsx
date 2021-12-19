@@ -6,32 +6,34 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GetPokemonList } from "../../redux/actions/PokemonActions";
 import introVideo from "../../intro.mp4";
-import "./gameBoy.scss";
+import "./gameBoyPokemon.scss";
 
-const GameBoyPokemon = ({ pokemonList }) => {
+const GameBoyPokemon = ({ pokemonName, pokeData }) => {
   const [playVideo, setPlayVideo] = useState(true);
+  const [showStats, setShowStats] = useState(false);
+  const [showMoves, setShowMoves] = useState(false);
 
   //Arrow Position on Y axis
-  const [arrowPosition, setArrowPosition] = useState(14);
+  const [arrowPosition, setArrowPosition] = useState(110);
   //Arrow Position on X axis
   const [arrowPositionX, setArrowPositionX] = useState(10);
 
   const [selectedPokemon, setSelectedPokemon] = useState(0);
   const [counter, setCounter] = useState(2);
-  const pokemonList2 = useSelector((state) => state.PokemonList);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
   //change arrow on Y Axis when pressing the Up and Down button
   const handleArrowPositionUp = () => {
-    if (arrowPosition > 14 && arrowPositionX === 10) {
-      setArrowPosition(arrowPosition - 38);
+    if (arrowPosition === 140) {
+      setArrowPosition(110);
       setSelectedPokemon(selectedPokemon - 1);
     }
   };
   const handleArrowPositionDown = () => {
-    if (arrowPosition < 128) {
-      setArrowPosition(arrowPosition + 38);
+    if (arrowPosition === 110) {
+      setArrowPosition(140);
       setSelectedPokemon(selectedPokemon + 1);
     } else if (arrowPosition === 128 && arrowPositionX === 10) {
       setArrowPosition(arrowPosition + 38);
@@ -40,31 +42,30 @@ const GameBoyPokemon = ({ pokemonList }) => {
   };
   //change arrow on X Axis when pressing the Right and Left button using same function
   const handleArrowPositionXAxis = () => {
-    if (arrowPosition === 166 && arrowPositionX === 10) {
+    if (arrowPositionX === 10) {
       setArrowPositionX(107);
-    } else if (arrowPosition === 166 && arrowPositionX === 107) {
+    } else if (arrowPositionX === 107) {
       setArrowPositionX(10);
     }
   };
 
-  const FetchData = (page) => {
-    dispatch(GetPokemonList(page));
-  };
   //Functionality for the A button
-  const routeChange = () => {
-    if (selectedPokemon >= 0 && selectedPokemon < 4) {
-      let path = `/pokemon/${pokemonList.data[selectedPokemon].name}`;
-      history.push(path);
-    } else if (selectedPokemon > 3 && arrowPositionX === 10) {
-      setCounter(counter + 1);
-      FetchData(counter);
-    } else if (selectedPokemon > 3 && arrowPositionX === 107 && counter > 0) {
-      setCounter(counter - 1);
-      FetchData(counter);
+  const handleButtonA = () => {
+    if (arrowPositionX === 10 && arrowPosition === 110) {
+      setShowStats(true);
+    } else if (arrowPositionX === 107 && arrowPosition === 110) {
+      setShowMoves(true);
     }
   };
-  console.log(counter);
 
+  //Functionality for the B button
+  const handleButtonB = () => {
+    if (showStats || showMoves) {
+      setShowStats(false);
+      setShowMoves(false);
+    }
+  };
+  console.log(pokeData);
   return (
     <div>
       <div className="gameboy" id="GameBoy">
@@ -80,25 +81,69 @@ const GameBoyPokemon = ({ pokemonList }) => {
           </div>
 
           <div className="display" id="mainCanvas">
-           
-              <div className="display_pokemons">
-                <p className="display_title">Have you caught this pokemon?</p>
-                <div className={"list-wrapper"}>
-                 
-                  <GoTriangleRight
-                    style={{
-                      top: `${arrowPosition}px`,
-                      left: `${arrowPositionX}px`,
-                    }}
-                    className="select_arrow"
-                  />
-                  <div className="select_buttons">
-                    <button>Next</button> <button>Prev</button>
-                  </div>
-                  {/* 10px 50px 80px 120px 160px*/}
+            <div className="display_pokemons">
+              <p className="display_title second_title">
+                Have you caught {pokemonName}?
+              </p>
+              <div className={"list-wrapper"}>
+                <img
+                  src={pokeData.sprites.front_default}
+                  alt="poke_image"
+                  className="pokemonImage"
+                />
+
+                <GoTriangleRight
+                  style={{
+                    top: `${arrowPosition}px`,
+                    left: `${arrowPositionX}px`,
+                  }}
+                  className="select_arrow"
+                />
+
+                {/* rendering selected options based on state with short circuits */}
+                <div className="select_buttons">
+                  {showStats ? (
+                    <div className="retro_box">
+                      <button>
+                        {pokeData.stats[0].stat.name}:
+                        {pokeData.stats[0].base_stat}
+                      </button>
+                      <button>
+                        {pokeData.stats[1].stat.name}:
+                        {pokeData.stats[1].base_stat}
+                      </button>
+                      <button id="btn_mTop">
+                        {pokeData.stats[2].stat.name}:
+                        {pokeData.stats[2].base_stat}
+                      </button>
+                      <button id="btn_mTop2">
+                        {pokeData.stats[5].stat.name}:
+                        {pokeData.stats[5].base_stat}
+                      </button>
+                    </div>
+                  ) : showMoves ? (
+                    <div className="retro_box">
+                      <button>{pokeData.moves[7].move.name}</button>
+                      <button>{pokeData.moves[68].move.name}</button>
+                      <button id="btn_mTop">
+                        {pokeData.moves[52].move.name}
+                      </button>
+                      <button id="btn_mTop2">
+                        {pokeData.moves[14].move.name}
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="retro_box">
+                      <button>Stats</button>
+                      <button>Moves</button>
+                      <button id="btn_mTop">Catch</button>
+                      <button id="btn_mTop2">Wish</button>
+                    </div>
+                  )}
                 </div>
+                {/* 10px 50px 80px 120px 160px*/}
               </div>
-           
+            </div>
           </div>
 
           <div className="label">
@@ -132,9 +177,11 @@ const GameBoyPokemon = ({ pokemonList }) => {
             <div className="middle"></div>
           </div>
           <div className="a-b">
-            <div className="b">B</div>
+            <div className="b" onClick={handleButtonB}>
+              B
+            </div>
 
-            <div className="a" onClick={routeChange}>
+            <div className="a" onClick={handleButtonA}>
               A
             </div>
           </div>
