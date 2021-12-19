@@ -14,7 +14,16 @@
     font-size: 9px;
     letter-spacing: 3px;
     text-transform: uppercase;
-  }
+    p{
+
+      animation: blink-animation 5s steps(5, start) infinite;
+      @keyframes blink-animation {
+        to {
+          visibility: hidden;
+        }
+      }
+    }
+    }
   .introvideo {
     position: absolute;
     left: 0px;

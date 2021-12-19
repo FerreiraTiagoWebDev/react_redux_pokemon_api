@@ -4,7 +4,7 @@ import _ from "lodash";
 import { GetPokemonList } from "../redux/actions/PokemonActions";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import GameBoy from "./GameBoy/GameBoy";
+import GameBoy from "./GameBoy/GameBoyList";
 
 const PokemonList = (props) => {
   //useSelector that gets the entire state from the PokemonList reducer in the store

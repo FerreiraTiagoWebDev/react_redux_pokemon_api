@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetPokemon } from "../redux/actions/PokemonActions";
 import _ from "lodash";
 import Wishlist from "./Wishlist";
-import GameBoy from "./GameBoy/GameBoy";
+import GameBoyPokemon from "./GameBoy/gameBoyPokemon";
 import "./GameBoy/gameBoy.scss";
 
 const Pokemon = (props) => {
@@ -27,6 +27,7 @@ const Pokemon = (props) => {
       const pokeData = pokemonState.data[pokemonName];
       return(
         <div className={"pokemon-wrapper"}>
+          <GameBoyPokemon pokemonName={pokemonName}/>
           <div className={"item"}>
             <h1>Sprites</h1>
             <img src={pokeData.sprites.front_default} alt=""/>

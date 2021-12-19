@@ -8,7 +8,7 @@ import { GetPokemonList } from "../../redux/actions/PokemonActions";
 import introVideo from "../../intro.mp4";
 import "./gameBoy.scss";
 
-const GameBoy = ({ pokemonList }) => {
+const GameBoyPokemon = ({ pokemonList }) => {
   const [playVideo, setPlayVideo] = useState(true);
 
   //Arrow Position on Y axis
@@ -80,36 +80,11 @@ const GameBoy = ({ pokemonList }) => {
           </div>
 
           <div className="display" id="mainCanvas">
-            {playVideo ? (
-              <div>
-                <div className="upperVideoBar">Press Start</div>
-                <video
-                  className="introvideo"
-                  width="210px"
-                  height="190px"
-                  autoPlay
-                  muted
-                  src={introVideo}
-                  type="video/mp4"
-                />
-              </div>
-            ) : (
+           
               <div className="display_pokemons">
-                <p className="display_title">Choose your pokemon</p>
+                <p className="display_title">Have you caught this pokemon?</p>
                 <div className={"list-wrapper"}>
-                  {pokemonList.data.map((el) => {
-                    return (
-                      <Link
-                        to={`/pokemon/${el.name}`}
-                        key={el.name}
-                        className={"pokemon-item"}
-                      >
-                        <div>
-                          <p>{el.name}</p>
-                        </div>
-                      </Link>
-                    );
-                  })}
+                 
                   <GoTriangleRight
                     style={{
                       top: `${arrowPosition}px`,
@@ -123,7 +98,7 @@ const GameBoy = ({ pokemonList }) => {
                   {/* 10px 50px 80px 120px 160px*/}
                 </div>
               </div>
-            )}
+           
           </div>
 
           <div className="label">
@@ -250,4 +225,4 @@ const GameBoy = ({ pokemonList }) => {
   );
 };
 
-export default GameBoy;
+export default GameBoyPokemon;
