@@ -62,10 +62,12 @@ const GameBoyPokemon = ( {pokemonName, pokeData }) => {
 
   //Functionality for the B button
   const routeSearchChange = () => {
+    
     let path = `/pokemon/${search}`;
     history.push(path);
+    
   }
-
+  
     const handleButtonB = () => {
     if (showStats || showMoves) {
       setShowStats(false);

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { GetPokemonList } from "../redux/actions/PokemonActions";
-import GameBoyList from "./GameBoy/GameBoyList";
-import "./GameBoy/gameBoy.scss";
+import GameBoyList from "../components/GameBoy/GameBoyList";
+import "../components/GameBoy/gameBoy.scss";
 import { CgPokemon } from "react-icons/cg";
 // import { Link } from "react-router-dom";
 // import ReactPaginate from "react-paginate";
@@ -11,6 +11,8 @@ import { CgPokemon } from "react-icons/cg";
 const PokemonList = (props) => {
   //useSelector that gets the entire state from the PokemonList reducer in the store
   const pokemonList = useSelector((state) => state.PokemonList);
+
+  console.log(pokemonList)
 
   const dispatch = useDispatch();
 
@@ -27,7 +29,7 @@ const PokemonList = (props) => {
 
   const ShowData = () => {
     if (pokemonList.loading) {
-      return <p>Loading...</p>;
+      return <p className="errorHandling">Loading...</p>;
     }
 
     if (!_.isEmpty(pokemonList.data)) {
@@ -35,7 +37,7 @@ const PokemonList = (props) => {
     }
 
     if (pokemonList.errorMsg !== "") {
-      return <p>{pokemonList.errorMsg}</p>;
+      return <p className="errorHandling">{pokemonList.errorMsg}</p>;
     }
 
     return <p>unable to get data</p>;
@@ -44,11 +46,11 @@ const PokemonList = (props) => {
   return (
     <div>
       <GameBoyList pokemonList={pokemonList} />
-      {/* search doesn0t work with uppercase */}
+      {/* search doesn't work with uppercase */}
       <div className={"search_wrapper"}>
         <p>Search For Your Favorite Pokemon: </p>
         <div className="form_row">
-          <input type="text" onChange={(e) => setSearch(e.target.value)} />
+          <input type="text" placeholder="example: mewtwo"  onChange={(e) => setSearch(e.target.value)} />
           
           <button
             className="button_form_submit"
@@ -58,18 +60,9 @@ const PokemonList = (props) => {
           </button>
         </div>
       </div>
-      {ShowData()}
+    
 
-      {/* Paginated access */}
-      {/* {!_.isEmpty(pokemonList.data) && (
-        <ReactPaginate
-          pageCount={Math.ceil(pokemonList.count / 4)}
-          pageRangeDisplayed={2}
-          marginPagesDisplayed={1}
-          onPageChange={(data) => FetchData(data.selected + 1)}
-          containerClassName={"pagination"}
-        />
-      )} */}
+   
       
       <div className="controls_desc"></div>
     </div>

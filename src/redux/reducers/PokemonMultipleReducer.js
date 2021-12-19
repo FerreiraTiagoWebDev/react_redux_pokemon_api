@@ -1,3 +1,5 @@
+
+
 const DefaultState = {
     loading: false,
     data: {},
@@ -16,7 +18,7 @@ const DefaultState = {
         return {
           ...state,
           loading: false,
-          errorMsg: "unable to find pokemon"
+          errorMsg: ("Unable to find pokemon")
         };
       case "POKEMON_MULTIPLE_SUCCESS":
         return {
