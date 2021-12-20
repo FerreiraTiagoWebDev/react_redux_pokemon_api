@@ -12,7 +12,7 @@ const Pokemon = (props) => {
   const pokemonName = props.match.params.pokemon;
   const dispatch = useDispatch();
   const pokemonState = useSelector((state) => state.Pokemon);
- 
+
   //state of pokemon's i've caught
   // const [caught, setCaught] = useState(null);
 
@@ -21,32 +21,44 @@ const Pokemon = (props) => {
   }, []);
 
   const ShowData = () => {
-    if (!_.isEmpty(pokemonState.data[pokemonName])) {
-      const pokeData = pokemonState.data[pokemonName];
-      return (
-        <div className={"pokemon-wrapper"}>
-          <GameBoyPokemon pokemonName={pokemonName} pokeData={pokeData} />
-        </div>
-      );
-    }
+    try {
+      if (!_.isEmpty(pokemonState.data[pokemonName])) {
+        const pokeData = pokemonState.data[pokemonName];
 
-    if (pokemonState.loading) {
-      return <p className="errorHandling">Loading...</p>;
-    }
+        return (
+          <div className={"pokemon-wrapper"}>
+            <GameBoyPokemon pokemonName={pokemonName} pokeData={pokeData} />
+          </div>
+        );
+      }
+      if (pokemonState.loading) {
+        return <p className="errorHandling">Loading...</p>;
+      }
 
-    if (pokemonState.errorMsg !== "") {
+      if (pokemonState.errorMsg !== "") {
+        return (
+          <div className="errorHandling">
+            <p>{pokemonState.errorMsg}</p>
+            <p>Try to write in lowercase </p>
+            <Link to="/pokemon">
+              <button>Try Again!</button>
+            </Link>
+          </div>
+        );
+      }
       return (
         <div className="errorHandling">
           <p>{pokemonState.errorMsg}</p>
-          <p>write in lowercase </p>
-          <Link to="/pokemon"><button>Try Again!</button></Link>
+          <Link to="/pokemon">
+            <button>Try Again!</button>
+          </Link>
         </div>
       );
+    } catch (err) {
+      console.log(err);
     }
-
-    return <p className="errorHandling">error getting pokemon</p>;
   };
-// Not yet implemented
+  // Not yet implemented
   // const addPokemonCaught = (e) => {
   //   setCaught({ pokemonName });
 
