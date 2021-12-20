@@ -20,6 +20,9 @@ const Logo = styled.img`
   top: -20px;
   height: 150px;
   width: 250px;
+  @media (max-height: 600px), (max-width: 1200px)  {
+    display:none;
+  }
 `;
 
 const Navbar = (props) => {
